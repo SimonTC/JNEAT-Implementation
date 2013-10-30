@@ -246,7 +246,11 @@
 	  
 		 return s.substring(2);
 	  }                                                      
-   
+	   
+	   /**
+	    * Write parameters to file
+	    * @param xNameFile
+	    */
 	   public static void writeParam(String xNameFile) {
 	  //
 	  // write to file xpar all parameters.....

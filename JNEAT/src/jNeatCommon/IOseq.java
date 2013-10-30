@@ -51,7 +51,11 @@
 		 fR = null;
 		 bR = null;
 	  }                                                   
-   
+	   
+	   /**
+	    * 
+	    * @param xNome - Filepath and name
+	    */
 	   public IOseq(String xNome) {
 		 NomeFile = xNome;
 		 fW = null;
@@ -116,7 +120,7 @@
 			bR = new BufferedReader(fR);
 		 } 
 			 catch (Exception evt) {
-//			   System.out.println("Error in jSeqOpenR : " + evt);
+			   System.out.println("Error in jSeqOpenR : " + evt);
 			   return false;
 			}
 		 return true;

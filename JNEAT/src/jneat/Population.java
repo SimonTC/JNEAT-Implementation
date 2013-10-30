@@ -1126,6 +1126,10 @@
 	  
 	  } 
    
+	   /**
+	    * write genome to file in native format (for re-read)
+	    * @param xNameFile
+	    */
 	   public void print_to_filename(String xNameFile) 
 	  {
 	  //

@@ -2850,6 +2850,11 @@
 		 }
 	  
 	  }
+	   /**
+	    * 
+	    * @param id - ID of the genome
+	    * @param xFile - 
+	    */
 	   public Genome(int id, IOseq xFile) 
 	  {
 	  

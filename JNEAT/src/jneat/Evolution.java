@@ -138,7 +138,8 @@
 			_specie.compute_average_fitness();
 			_specie.compute_max_fitness();
 		 }
-	  // Only print to file every print_every generations
+	  
+		 // Only print to file every print_every generations
 	  
 	  
 		 if (win || (generation % Neat.p_print_every) == 0)
@@ -163,6 +164,7 @@
 			   }
 			}
 		 }
+		 
 	  // wait an epoch and make a reproductionof the best species
 		 pop.epoch(generation);
 		 if (win)
@@ -173,6 +175,7 @@
 		 else 
 			return false;
 	  }
+	   
    /**
    * Insert the method's description here.
    * Creation date: (16/01/2002 9.53.37)

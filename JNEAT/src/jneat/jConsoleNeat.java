@@ -4,7 +4,7 @@
 
    import java.util.*;
 
-   import jNeatCommon.*;
+import jNeatCommon.*;
 	public class jConsoleNeat {
    
      public static void main(java.lang.String[] args) 
@@ -12,11 +12,12 @@
 	  
 		 Neat.initbase();
 	  
-		 String nome = "c:\\jneat\\dati\\parametri";
+		 //String nome = "c:\\jneat\\dati\\parametri"; //STC
+		 String nome = FolderConstant.DATA_FOLDER + "\\parametri";
 		 String nomeA = null;
 		 String nomeB = null;
 	  
-	  /*//STC
+	  //STC
 	  //  String nome = "c:\\neat_v2\\evolution\\parametri.ne";
 		 boolean rc = Neat.readParam(nome);
 	  
@@ -28,7 +29,7 @@
 	  
 		 nome = "c:\\jneat\\dati\\listay";
 		 Neat.writeParam(nome);
-	  */
+	  
 		 
 	  
 	  // ------------------------------------------------------   	
@@ -60,13 +61,13 @@
 	  
 	  */
 	  
-	  /*
+	  ///*
 	  //
 	  // -------------------- creation a population from a one genome--------------------------
 	  //
-	  	nomeA = "c:\\jneat\\dati\\genome.old";
+	  	nomeA = FolderConstant.DATA_FOLDER + "\\starterGenomeXOR";
 	  Evolution.Experiment1(nomeA,10);
-	  */
+	  //*/
 	  
 	  
 	  
@@ -75,7 +76,7 @@
 	  //
 	  // -------------------- creation of a random population --------------------------
 	  //
-		 Evolution.Experiment3(20,NeatConstant.COLD,  1);
+//		 Evolution.Experiment3(20,NeatConstant.COLD,  1);
 	  //		Evolution.Experiment3(150,NeatConstant.EMER,  10);
 	  
 	  
