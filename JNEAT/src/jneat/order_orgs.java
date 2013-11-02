@@ -1,5 +1,4 @@
-   package jneat.evolution;
-
+   package jneat;
 
 /**
  *

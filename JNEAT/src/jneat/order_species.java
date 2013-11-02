@@ -1,4 +1,4 @@
-   package jneat.evolution;
+   package jneat;
 
    import java.util.*;
 /**

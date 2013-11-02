@@ -4,8 +4,6 @@
 
    import java.util.*;
 
-import jneat.evolution.Evolution;
-
 import jNeatCommon.*;
 	public class jConsoleNeat {
    
