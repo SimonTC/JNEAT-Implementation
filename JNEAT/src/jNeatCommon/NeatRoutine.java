@@ -5,7 +5,7 @@
    import java.io.*;
    import jNeatCommon.*;
 
-																public class NeatRoutine {
+	public class NeatRoutine {
    
    /**
    * Insert the method's description here.

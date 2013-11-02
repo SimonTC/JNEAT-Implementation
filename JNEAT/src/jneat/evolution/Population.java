@@ -72,7 +72,8 @@ import jNeatCommon.*;
 		 spawn(g, size);
 	  }            
    
-	   	   /**
+	   
+	   /**
 	   *
 	   * Construct off of a file of Genomes
 	   */
@@ -500,13 +501,6 @@ import jNeatCommon.*;
 			 }
 		  
 		  
-			 EnvConstant.REPORT_SPECIES_TESTA = rep1.toString();
-			 rep1 = new StringBuffer("");
-		  
-		  
-		  
-		  
-		  
 			 curspecies = (Species) sorted_species.firstElement();
 		  
 		  //Check for Population-level stagnation
@@ -524,30 +518,16 @@ import jNeatCommon.*;
 				rep1.append("\n    population has reached a new *RECORD FITNESS* -> " + highest_fitness);
 	
 	
-				// 01.06.2002
-							EnvConstant.CURR_ORGANISM_CHAMPION = tmp;
-	
-	
-	
-	
-				
-				EnvConstant.MIN_ERROR = ((Organism) curspecies.organisms.firstElement()).getError();
-			 
-			 
+			
 			 } 
 			 else 
 			 {
 				++highest_last_changed;
-				EnvConstant.REPORT_SPECIES_TESTA = "";
 			 
 			 //	  	System.out.print("\n  Are passed "+ highest_last_changed+ " generations from last population fitness record: "+ highest_fitness); 
 				rep1.append("\n    are passed "+ highest_last_changed+ " generations from last population fitness record: "+ highest_fitness); 
 			 }
-		  
-		  
-		  
-			 EnvConstant.REPORT_SPECIES_CORPO = rep1.toString();	
-		  
+
 		  //Check for stagnation- if there is stagnation, perform delta-coding
 		  
 			 if (highest_last_changed >= Neat.p_dropoff_age + 5) 
@@ -879,27 +859,6 @@ import jNeatCommon.*;
 				}
 			 
 			 }
-		  
-		  
-		  
-		  
-		  
-		  
-		  /*   			
-		  if (!best_ok)
-		  System.out.print("\n  <ALERT>  THE BEST SPECIES DIED!");
-		  else
-		  System.out.print("\n  Good : the best Specie #" + best_species_num+" survived ");
-		  */
-		  
-		  
-			 if (!best_ok)
-				EnvConstant.REPORT_SPECIES_CODA = "\n  <ALERT>  THE BEST SPECIES DIED!";
-			 else
-				EnvConstant.REPORT_SPECIES_CODA = "\n  Good : the best Specie #" + best_species_num+" survived ";
-		  
-		  
-		  
 		  
 			 itr_organism = organisms.iterator();
 			 vdel = new Vector(organisms.size());
