@@ -1,13 +1,12 @@
-package evolver;
+package trainer;
+
+import jNeatCommon.FolderConstant;
+import jNeatCommon.IOseq;
 
 import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import jNeatCommon.FolderConstant;
-import jNeatCommon.IOseq;
-import jNeatCommon.NeatConstant;
-import jneat.Evolution;
 import jneat.Genome;
 import jneat.NNode;
 import jneat.Neat;
@@ -16,25 +15,36 @@ import jneat.Organism;
 import jneat.Population;
 import jneat.Species;
 
-public class XorEvolver {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		XorEvolver evolver = new XorEvolver();
-		evolver.evolveXOR();
-
-	}
+public class Trainer {
+	String parameterFileName;
+	String debugParameterFileName;
+	String genomeFileName;
+	String genomeBackupFileName;
+	String lastPopulationInfoFileName;
+	String generationInfoFolder;
+	String winnerFolder;
+	int numberOfGenerations;
+	String nameOfExperiment;
+	boolean stopOnFirstGoodOrganism;
 	
-	private void evolveXOR(){
+	public void trainNetwork(){
 		boolean status;
+		
+		//Test if all variables have been set
+		
+		
+		/*
 		String parameterFileName = FolderConstant.DATA_FOLDER + "\\parameters";
 		String debugParameterFileName = FolderConstant.DATA_FOLDER + "\\parameters.imported";
 		String genomeFileName = FolderConstant.DATA_FOLDER + "\\starterGenomeXOR";
 		int numberOfGenerations = 100;
 		String typeOfExperiment = "XOR";
 		boolean stopOnFirstGoodOrganism = true;
+		genomeBackupFileName = FolderConstant.DATA_FOLDER + "\\starterGenome.read" 
+		lastPopulationInfoFileName = FolderConstant.DATA_FOLDER + "\\population.LastGeneration";
+		generationInfoFolder = FolderConstant.DATA_FOLDER + "\\Generation Info"
+		winnerFolder = FolderConstant.DATA_FOLDER + "\\Winners"
+		*/
 		
 		//Initialise the neat class
 		Neat.initbase();
@@ -48,9 +58,15 @@ public class XorEvolver {
 		writeParametersToFile(debugParameterFileName);
 		
 		//Run experiments
-		System.out.println("Start experiment " + typeOfExperiment);
+		System.out.println("Start experiment " + nameOfExperiment);
 		experimentSession(genomeFileName, numberOfGenerations, stopOnFirstGoodOrganism);
 		
+	}
+	
+	private boolean testVariables(){
+		//Do the testing
+		
+		return false;
 	}
 	
 	private boolean importParameters (String parameterFileName){
@@ -121,8 +137,8 @@ public class XorEvolver {
 		
 		//Backup initial genome
 		//Probably used for debugging
-		startGenome.print_to_filename(FolderConstant.DATA_FOLDER + "\\starterGenome.read");
-		
+		startGenome.print_to_filename(genomeBackupFileName);
+				
 		return startGenome;
 		
 	}
@@ -164,8 +180,7 @@ public class XorEvolver {
 		System.out.print("\n             : cur_node_id = " + pop.getCur_node_id());  //Current number of nodes (??)
 		
 		//Writes population info to file for the last population 
-		String populationInfoFileName = FolderConstant.DATA_FOLDER + "\\population.LastGeneration";
-		pop.print_to_filename(populationInfoFileName);
+		pop.print_to_filename(lastPopulationInfoFileName);
 	}
 	
 	/**
@@ -206,7 +221,7 @@ public class XorEvolver {
 		 
 		// Only print to file every print_every generations
 		if (win || (generation % Neat.p_print_every) == 0){
-			pop.print_to_file_by_species(FolderConstant.DATA_FOLDER + "\\Generation Info\\" + filenameEpochInfo);
+			pop.print_to_file_by_species(generationInfoFolder + "\\" + filenameEpochInfo);
 		}
 		  
 		// if a winner exist, write to file	   
@@ -217,7 +232,7 @@ public class XorEvolver {
 				Organism _organism = ((Organism) itr_organism.next());
 				if (_organism.winner){
 					System.out.print("\n   -WINNER IS #" + _organism.genome.genome_id);
-					_organism.getGenome().print_to_filename(FolderConstant.DATA_FOLDER + "\\Winners\\xor_win" + cnt);
+					_organism.getGenome().print_to_filename(winnerFolder +  "\\" + nameOfExperiment + "_win " + cnt);
 					cnt++;
 				}
 			}
@@ -305,4 +320,53 @@ public class XorEvolver {
 		return success;
 	 }
 
+
+	public void setParameterFileName(String parameterFileName) {
+		this.parameterFileName = parameterFileName;
+	}
+
+
+	public void setDebugParameterFileName(String debugParameterFileName) {
+		this.debugParameterFileName = debugParameterFileName;
+	}
+
+
+	public void setGenomeFileName(String genomeFileName) {
+		this.genomeFileName = genomeFileName;
+	}
+
+
+	public void setGenomeBackupFileName(String genomeBackupFileName) {
+		this.genomeBackupFileName = genomeBackupFileName;
+	}
+
+
+	public void setLastPopulationInfoFileName(String lastPopulationInfoFileName) {
+		this.lastPopulationInfoFileName = lastPopulationInfoFileName;
+	}
+
+
+	public void setGenerationInfoFolder(String generationInfoFolder) {
+		this.generationInfoFolder = generationInfoFolder;
+	}
+
+
+	public void setWinnerFolder(String winnerFolder) {
+		this.winnerFolder = winnerFolder;
+	}
+
+
+	public void setNumberOfGenerations(int numberOfGenerations) {
+		this.numberOfGenerations = numberOfGenerations;
+	}
+
+
+	public void setNameOfExperiment(String nameOfExperiment) {
+		this.nameOfExperiment = nameOfExperiment;
+	}
+
+
+	public void setStopOnFirstGoodOrganism(boolean stopOnFirstGoodOrganism) {
+		this.stopOnFirstGoodOrganism = stopOnFirstGoodOrganism;
+	}
 }
