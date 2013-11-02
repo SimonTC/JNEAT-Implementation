@@ -1,4 +1,6 @@
-   package jneat;
+   package jneat.evolution;
+
+import jneat.neuralNetwork.NNode;
 
 /**
  * 

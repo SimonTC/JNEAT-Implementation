@@ -1,5 +1,7 @@
 
-   package jneat;
+   package jneat.neuralNetwork;
+
+import jneat.Neat;
 
 
 	        /**

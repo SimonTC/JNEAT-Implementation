@@ -8,5 +8,5 @@ package jNeatCommon;
  */
 public class FolderConstant {
 	public static String MAIN_FOLDER = "C:\\Users\\Simon\\Documents\\MarioFun\\jneat";
-	public static String DATA_FOLDER = "D:\\Users\\Simon\\Documents\\MarioFun\\jneat\\data";
+	public static String DATA_FOLDER = "C:\\Users\\Simon\\Documents\\MarioFun\\jneat\\data";
 }
