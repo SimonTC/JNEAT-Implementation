@@ -25,9 +25,7 @@ public class XORTEster {
 		if (ret){
 			//Create starter genome
 			Genome testGenome = createGenome(starterGenomeFile);
-			testGenome(testGenome);
-			
-			
+			testGenome(testGenome);			
 		} else{
 			System.out.println("Error during opening of " + testGenomeFileName);
 		}
