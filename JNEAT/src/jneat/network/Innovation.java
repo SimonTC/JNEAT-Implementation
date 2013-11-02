@@ -1,7 +1,8 @@
 
-   package jneat;
+   package jneat.network;
 
-   import jNeatCommon.*;
+   import jneat.Neat;
+import jNeatCommon.*;
 
 /**
  * This class serves as a way to record innovations

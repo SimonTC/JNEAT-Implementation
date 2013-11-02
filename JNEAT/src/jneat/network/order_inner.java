@@ -1,4 +1,4 @@
-   package jneat;
+   package jneat.network;
 
 /**
  * 

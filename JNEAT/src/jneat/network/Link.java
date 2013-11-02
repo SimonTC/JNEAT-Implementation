@@ -1,5 +1,8 @@
 
-   package jneat;
+   package jneat.network;
+
+import jneat.Neat;
+
 
 
 	        /**
