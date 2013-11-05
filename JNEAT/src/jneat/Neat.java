@@ -136,6 +136,7 @@
 	  public static String d_mutate_gene_reenable_prob;
 	  public static String d_mutate_add_node_prob;
 	  public static String d_mutate_add_link_prob;
+	  public static String d_mutate_add_sensor_prob;
 	  public static String d_interspecies_mate_rate;
 	  public static String d_mate_multipoint_prob;
 	  public static String d_mate_multipoint_avg_prob;
