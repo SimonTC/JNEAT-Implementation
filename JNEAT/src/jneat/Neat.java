@@ -71,6 +71,9 @@
    
    /** Probability  of add a link to struct of genome */
 	  public static double p_mutate_add_link_prob;
+	 
+	  /** Probability  of add a sensor to struct of genome */
+	  public static double p_mutate_add_sensor_prob;
    
    /** Probability  of a mate being outside species */
 	  public static double p_interspecies_mate_rate;

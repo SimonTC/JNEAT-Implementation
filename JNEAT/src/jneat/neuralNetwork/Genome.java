@@ -2285,6 +2285,8 @@ import jNeatCommon.*;
 		 }
 	  
 	  }
+	   
+	   
    
 	   public void node_insert(Vector<NNode> nlist, NNode n) 
 	  {
@@ -2697,6 +2699,107 @@ import jNeatCommon.*;
 		 return true;
 	  
 	  }
+	   
+	   public void mutate_add_sensor(Population pop) {
+	       Vector sensors = new Vector();
+	       Vector outputs = new Vector();
+
+	       // find all the sensors and outputs
+	       for (int i = 0; i < nodes.size(); i++) {
+	           NNode node = (NNode) nodes.elementAt(i);
+
+	           if (node.type == NeatConstant.SENSOR)
+	               sensors.add(node);
+	           else if (node.gen_node_label == NeatConstant.OUTPUT)
+	               outputs.add(node);
+	       }
+
+	       // eliminate from contention any sensors that are already connected
+	       for (int i = 0; i < sensors.size(); i++) {
+	           NNode sensor = (NNode) sensors.elementAt(i);
+
+	           int outputConnections = 0;
+	           for (int j = 0; j < genes.size(); j++) {
+	               Gene gene = (Gene) genes.elementAt(j);
+
+	               if (gene.lnk.in_node == sensor &&
+	                   gene.lnk.out_node.gen_node_label == NeatConstant.OUTPUT) {
+	                   outputConnections++;
+	               }
+	           }
+
+	           if (outputConnections == outputs.size()) {
+	               sensors.remove(i);
+	               i--;
+	           }
+	       }
+
+	       // if all sensors are connected, quit
+	       if (sensors.size() == 0)
+	           return;
+
+	       // pick randomly from remaining sensors
+	       NNode sensor = (NNode) sensors.elementAt(NeatConstant.myRandom.nextInt(sensors.size()));
+
+	       // add new links to chosen sensor, avoiding redundancy
+	       for (int i = 0; i < outputs.size(); i++) {
+	           NNode output = (NNode) outputs.elementAt(i);
+
+	           boolean found = false;
+	           for (int j = 0; j < genes.size(); j++) {
+	               Gene gene = (Gene) genes.elementAt(j);
+	               if (gene.lnk.in_node == sensor &&
+	                   gene.lnk.out_node == output)
+	                   found = true;
+	           }
+
+	           if (!found) {
+	               Iterator innovations = pop.getInnovations().iterator();
+	               boolean done = false;
+
+	               while (!done) {
+	                   if (!innovations.hasNext()) {
+	                       int traitNum = NeatRoutine.randint(0,traits.size()-1);
+	                       double newWeight = NeatRoutine.randposneg() *
+	                           NeatRoutine.randfloat() * 10.0;
+
+	                       double currInnov = pop.getCurr_innov_num_and_increment();
+	                       Gene gene = new Gene((Trait) traits.elementAt(traitNum),
+	                                            newWeight,sensor,output,false,
+	                                            currInnov,newWeight);
+	                       genes.add(gene);
+
+	                       pop.getInnovations().add(new Innovation(sensor.node_id,
+	                                                          output.node_id,
+	                                                          currInnov,
+	                                                          newWeight,
+	                                                          traitNum));
+
+	                       done = true;
+	                   }
+	                   else {
+	                       Innovation innov = (Innovation) innovations.next();
+	                       if (innov.innovation_type == NeatConstant.NEWLINK &&
+	                           innov.node_in_id == sensor.node_id &&
+	                           innov.node_out_id == output.node_id &&
+	                           innov.recur_flag == false) {
+
+	                           Gene gene = new Gene((Trait) traits.elementAt(innov.new_traitnum),
+	                        		   			innov.new_weight,
+	                        		   			sensor,
+	                        		   			output,
+	                        		   			false,
+	                        		   			innov.innovation_num1,
+	                        		   			0);
+	                           genes.add(gene);
+
+	                           done = true;
+	                       }
+	                   }
+	               }
+	           }
+	       }
+	   }
 	   
    /**
    * Creation of a new random genome with :

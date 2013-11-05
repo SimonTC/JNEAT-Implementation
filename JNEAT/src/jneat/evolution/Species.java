@@ -554,6 +554,13 @@ import jNeatCommon.*;
 				  new_genome.mutate_add_link(pop, Neat.p_newlink_tries);
 				  mut_struct_baby = true;
 			   } 
+			   else if (NeatRoutine.randfloat() < Neat.p_mutate_add_sensor_prob) 
+			   {
+				//System.out.print("\n ....mutate add link");
+				  net_analogue = new_genome.genesis(generation);
+				  new_genome.mutate_add_sensor(pop);
+				  mut_struct_baby = true;
+			   } 
 			   else 
 			   {
 			   
