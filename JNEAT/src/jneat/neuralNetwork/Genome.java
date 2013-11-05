@@ -836,7 +836,12 @@ import jNeatCommon.*;
 				 nodeLabel == NeatConstant.OUTPUT ||
 				 nodeLabel == NeatConstant.BIAS){
 				 
-				 int nodeTraitNumber = n.nodetrait.trait_id;
+				 int nodeTraitNumber;
+				 if (n.nodetrait==null){
+					 nodeTraitNumber=0;
+				 } else {
+					 nodeTraitNumber = n.nodetrait.trait_id;
+				 }
 				 
 				 //Create new node
 				 NNode newNode = new NNode(n, newtraits.elementAt(nodeTraitNumber));
@@ -1291,7 +1296,12 @@ import jNeatCommon.*;
 				 nodeLabel == NeatConstant.OUTPUT ||
 				 nodeLabel == NeatConstant.BIAS){
 				 
-				 int nodeTraitNumber = n.nodetrait.trait_id;
+				 int nodeTraitNumber;
+				 if (n.nodetrait==null){
+					 nodeTraitNumber=0;
+				 } else {
+					 nodeTraitNumber = n.nodetrait.trait_id;
+				 }
 				 
 				 //Create new node
 				 NNode newNode = new NNode(n, newtraits.elementAt(nodeTraitNumber));
@@ -1303,6 +1313,7 @@ import jNeatCommon.*;
 		 /**
 		  * End of added code block
 		  */
+		 
 		 Iterator<Gene> itr_newgenes;
 	  
 		 j1 = 0;
@@ -1683,7 +1694,12 @@ import jNeatCommon.*;
 				 nodeLabel == NeatConstant.OUTPUT ||
 				 nodeLabel == NeatConstant.BIAS){
 				 
-				 int nodeTraitNumber = n.nodetrait.trait_id;
+				 int nodeTraitNumber;
+				 if (n.nodetrait==null){
+					 nodeTraitNumber=0;
+				 } else {
+					 nodeTraitNumber = n.nodetrait.trait_id;
+				 }
 				 
 				 //Create new node
 				 NNode newNode = new NNode(n, newtraits.elementAt(nodeTraitNumber));
