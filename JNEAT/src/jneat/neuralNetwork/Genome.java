@@ -840,7 +840,7 @@ import jNeatCommon.*;
 				 if (n.nodetrait==null){
 					 nodeTraitNumber=0;
 				 } else {
-					 nodeTraitNumber = n.nodetrait.trait_id;
+					 nodeTraitNumber = n.nodetrait.trait_id - 1;
 				 }
 				 
 				 //Create new node
@@ -1300,7 +1300,7 @@ import jNeatCommon.*;
 				 if (n.nodetrait==null){
 					 nodeTraitNumber=0;
 				 } else {
-					 nodeTraitNumber = n.nodetrait.trait_id;
+					 nodeTraitNumber = n.nodetrait.trait_id - 1;
 				 }
 				 
 				 //Create new node
@@ -1698,7 +1698,7 @@ import jNeatCommon.*;
 				 if (n.nodetrait==null){
 					 nodeTraitNumber=0;
 				 } else {
-					 nodeTraitNumber = n.nodetrait.trait_id;
+					 nodeTraitNumber = n.nodetrait.trait_id - 1;
 				 }
 				 
 				 //Create new node
