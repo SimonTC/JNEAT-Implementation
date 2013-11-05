@@ -78,7 +78,12 @@ import jNeatCommon.*;
 	   public void setPhenotype(Network phenotype) {
 		 this.phenotype = phenotype;
 	  }         
-   
+	   
+	   /**
+	    * Duplicates this genome
+	    * @param new_id the ID of the new genome
+	    * @return the duplicated genome
+	    */
 	   public Genome duplicate(int new_id) 
 	  {
 		 Trait newtrait = null;
@@ -121,6 +126,7 @@ import jNeatCommon.*;
 			NNode _node = ((NNode) itr_node.next());
 			assoc_trait = null;
 		 
+			//Finds trait of the node //STC
 			if (_node.getNodetrait() != null) 
 			{
 			   _trait_id = _node.nodetrait.trait_id;
@@ -137,12 +143,13 @@ import jNeatCommon.*;
 			   
 			   }
 			}
-		 
+			
+			//Creates the new node
 			newnode = new NNode(_node, assoc_trait);
 		 
 			_node.dup = newnode;
 			nodes_dup.add(newnode);
-		 }
+		 } //Loop through the nodes
 	  
 	  /**
 	  * duplicate Genes
@@ -174,18 +181,20 @@ import jNeatCommon.*;
 		 // creation of new gene with a pointer to new node
 			newgene = new Gene(_gene, assoc_trait, inode, onode);
 			genes_dup.add(newgene);
-		 }
+		 }//Loop through the genes
 	  
 	  // okay all nodes created, the new genome can be generate
 		 newgenome = new Genome(new_id, traits_dup, nodes_dup, genes_dup);
 		 return newgenome;
 	  }         
-   /**
-   *
-   *
-   *
-   *
-   */
+   
+	   /**
+	    * Creates a new genome based on already existing traits, nodes and genes
+	    * @param id Id of the new genome
+	    * @param t Vector of traits
+	    * @param n Vector of nodes
+	    * @param g Vector of genes
+	    */
 	   public Genome(int id, Vector<Trait> t, Vector<NNode> n, Vector<Gene> g) 
 	  {
 		 genome_id = id;
@@ -195,12 +204,18 @@ import jNeatCommon.*;
 		 notes = null;
 		 phenotype = null;
 	  }         
-   
+	   
+	   /**
+	    * Mutates the weight of all the genes in the genome
+	    * @param power
+	    * @param rate
+	    * @param mutation_type
+	    */
 	   public void mutate_link_weight(double power, double rate, int mutation_type) 
 	  {
 		 double _weight = 0.0;
 		 double num; //counts gene placement
-		 double gene_total;
+		 double gene_total; //Total number of genes
 		 double powermod; //Modified power by gene number
 	  
 	  //The power of mutation will rise farther into the genome
@@ -285,7 +300,12 @@ import jNeatCommon.*;
 	  
 	  
 	  }         
-   
+	   
+	   /**
+	    * Creates the neural network for the genome
+	    * @param id id if the genome
+	    * @return
+	    */
 	   public Network genesis(int id) 
 	  {
 	  
@@ -309,85 +329,76 @@ import jNeatCommon.*;
 		 Iterator<Gene> itr_gene = genes.iterator();
 	  
 		 itr_node = nodes.iterator();
-		 while (itr_node.hasNext()) 
-		 {
-			NNode _node = ((NNode) itr_node.next());
-		 
-		 //create a copy of gene node for fenotype
-			newnode = new NNode(_node.type, _node.node_id);
-		 
-		 //Derive link's parameters from its Trait pointer
-		 // of nodetrait
-		 
-			curtrait = _node.nodetrait;
-			newnode.derive_trait(curtrait);
-			newnode.inner_level = 0;
-		 
-		 //****ADD 19/02/2002
-			newnode.gen_node_label = _node.gen_node_label;
-		 //****END ADD
-		 
-		 
-		 
-		 // new field
-			newnode.is_traversed = false;
-		 
-			if (_node.gen_node_label == NeatConstant.INPUT)
-			   inlist.add(newnode);
-			if (_node.gen_node_label == NeatConstant.BIAS)
-			   inlist.add(newnode);
-			if (_node.gen_node_label == NeatConstant.OUTPUT)
-			   outlist.add(newnode);
-		 
-		 // add to genotype the pointer to phenotype node
-			all_list.add(newnode);
-			_node.analogue = newnode;
+		 while (itr_node.hasNext()) {
+			 NNode _node = ((NNode) itr_node.next());
+			 
+			 //create a copy of the node for fenotype
+				newnode = new NNode(_node.type, _node.node_id);
+			 
+			 //Derive link's parameters from its Trait pointer
+			 // of nodetrait
+			 
+				curtrait = _node.nodetrait;
+				newnode.derive_trait(curtrait);
+				newnode.inner_level = 0;
+			 
+			 //****ADD 19/02/2002
+				newnode.gen_node_label = _node.gen_node_label;
+			 //****END ADD
+			 
+			 
+			 
+			 // new field
+				newnode.is_traversed = false;
+			 
+				if (_node.gen_node_label == NeatConstant.INPUT)
+				   inlist.add(newnode);
+				if (_node.gen_node_label == NeatConstant.BIAS)
+				   inlist.add(newnode);
+				if (_node.gen_node_label == NeatConstant.OUTPUT)
+				   outlist.add(newnode);
+			 
+			 // add to genotype the pointer to phenotype node
+				all_list.add(newnode);
+				_node.analogue = newnode;
 		 }
 	  
-	  
-		 if (genes.size() == 0) 
-		 {
-			System.out.print(
+		 //Test number of genes
+		 if (genes.size() == 0) {
+			 System.out.print(
 			   "\n ALERT : are a network whitout GENES; the result can unpredictable"); 
 		 }
 	  
-	  
+		 //Test number of output nodes
 		 if (outlist.size() == 0) 
 		 {
 			System.out.print(
 			   "\n ALERT : are a network whitout OUTPUTS; the result can unpredictable");
 			this.op_view();
-		 }
-	  
-	  
-	  
-	  
-	  
+		 }	  
 	  
 		 itr_gene = genes.iterator();
-		 while (itr_gene.hasNext()) 
-		 {
+		 
+		 while (itr_gene.hasNext()) {
 			Gene _gene = ((Gene) itr_gene.next());
 		 
-		 //Only create the link if the gene is enabled
-			if (_gene.getEnable() == true) {
-			
-			
-			   curlink = _gene.getLnk();
-			
-			   inode = curlink.in_node.analogue;
-			   onode = curlink.out_node.analogue;
-			//NOTE: This line could be run through a recurrency check if desired
-			// (no need to in the current implementation of NEAT)
-			   newlink = new Link(curlink.weight, inode, onode, curlink.is_recurrent);
-			   onode.incoming.add(newlink);
-			   inode.outgoing.add(newlink);
-			
-			//Derive link's parameters from its Trait pointer
-			// of linktrait
-			   curtrait = curlink.linktrait;
-			   curlink.derive_trait(curtrait);
-			} 
+			 //Only create the link if the gene is enabled
+				if (_gene.getEnable() == true) {				
+					   curlink = _gene.getLnk();
+					
+					   inode = curlink.in_node.analogue;
+					   onode = curlink.out_node.analogue;
+					//NOTE: This line could be run through a recurrency check if desired
+					// (no need to in the current implementation of NEAT)
+					   newlink = new Link(curlink.weight, inode, onode, curlink.is_recurrent);
+					   onode.incoming.add(newlink);
+					   inode.outgoing.add(newlink);
+					
+					//Derive link's parameters from its Trait pointer
+					// of linktrait
+					   curtrait = curlink.linktrait;
+					   curlink.derive_trait(curtrait);
+				} 
 		 
 		 }
 	  
@@ -557,9 +568,12 @@ import jNeatCommon.*;
 		 System.out.print(" GENOME END");
 	  
 	  }      
-   
-	   public boolean verify() 
-	  {
+	   /**
+	    * STC
+	    * Verifies that the genome is created correctly
+	    * @return
+	    */
+	   public boolean verify() {
 	  
 		 NNode inode = null;
 		 NNode onode = null;
@@ -572,97 +586,89 @@ import jNeatCommon.*;
 		 Iterator<Gene> itr_gene = genes.iterator();
 		 Iterator<Gene> itr_gene1 = genes.iterator();
 		 Iterator<NNode> itr_node = nodes.iterator();
-	  
-		 if (genes.size() == 0) 
-		 {
-		 //         System.out.print("\n DEBUG genome.costructor.genome.random");
-		 //         System.out.println("\n *ERROR* are not genes");
-			return false;
-		 }
-	  
-		 if (nodes.size() == 0) {
-		 //         System.out.print("\n DEBUG genome.costructor.genome.random");
-		 //         System.out.println("\n *ERROR* are not nodes");
-			return false;
-		 }
-	  
-		 if (traits.size() == 0) 
-		 {
-		 //         System.out.print("\n DEBUG genome.costructor.genome.random");
-		 //         System.out.println(" *ERROR*\n are not traits");
-			return false;
-		 }
-	  
-	  // control if nodes in gene are defined and are the same nodes il nodes list
-		 itr_gene = genes.iterator();
-		 while (itr_gene.hasNext()) 
-		 {
 		 
-			Gene _gene = ((Gene) itr_gene.next());
-		 
-			inode = _gene.getLnk().in_node;
-			onode = _gene.getLnk().out_node;
-		 
-			if (inode == null) 
-			{
-			   System.out.println(" *ERROR* inode = null in genome #" + genome_id);
-			   return false;
-			}
-			if (onode == null) 
-			{
-			   System.out.println(" *ERROR* onode = null in genome #" + genome_id);
-			   return false;
-			}
-			if (!nodes.contains(inode)) 
-			{
-			   System.out.println(
-				  "Missing inode:  node defined in gene not found in Vector nodes of genome #"
-				  + genome_id); 
-			   System.out.print("\n the inode is=" + inode.node_id);
-			   return false;
-			}
-			if (!nodes.contains(onode)) 
-			{
-			   System.out.println(
-				  "Missing onode:  node defined in gene not found in Vector nodes of genome #"
-				  + genome_id); 
-			   System.out.print("\n the onode is=" + onode.node_id);
-			   return false;
-			}
-		 }
+		 //Test if genome contains genes, nodes and traits
+			 if (genes.size() == 0) {
+				 //         System.out.print("\n DEBUG genome.costructor.genome.random");
+				 //         System.out.println("\n *ERROR* are not genes");
+				return false;
+			 }
+		  
+			 if (nodes.size() == 0) {
+			 //         System.out.print("\n DEBUG genome.costructor.genome.random");
+			 //         System.out.println("\n *ERROR* are not nodes");
+				return false;
+			 }
+		  
+			 if (traits.size() == 0) 
+			 {
+			 //         System.out.print("\n DEBUG genome.costructor.genome.random");
+			 //         System.out.println(" *ERROR*\n are not traits");
+				return false;
+			 }
+	  
+	  // control if nodes in the genes are defined and are the same nodes as in the nodes list
+			 itr_gene = genes.iterator();
+			 while (itr_gene.hasNext()) {
+			 
+				Gene _gene = ((Gene) itr_gene.next());
+			 
+				inode = _gene.getLnk().in_node;
+				onode = _gene.getLnk().out_node;
+			 
+				if (inode == null) {
+				   System.out.println(" *ERROR* inode = null in genome #" + genome_id);
+				   return false;
+				}
+				if (onode == null) {
+				   System.out.println(" *ERROR* onode = null in genome #" + genome_id);
+				   return false;
+				}
+				
+				if (!nodes.contains(inode)) {
+				   System.out.println(
+					  "Missing inode:  node defined in gene not found in Vector nodes of genome #"
+					  + genome_id); 
+				   System.out.print("\n the inode is=" + inode.node_id);
+				   return false;
+				}
+				
+				if (!nodes.contains(onode)) {
+				   System.out.println(
+					  "Missing onode:  node defined in gene not found in Vector nodes of genome #"
+					  + genome_id); 
+				   System.out.print("\n the onode is=" + onode.node_id);
+				   return false;
+				}
+			 } //Loop through genes
 	  
 	  // verify if list nodes is ordered
 		 itr_node = nodes.iterator();
-		 while (itr_node.hasNext()) 
-		 {
+		 while (itr_node.hasNext()) {
 			NNode _node = ((NNode) itr_node.next());
-			if (_node.node_id < last_id) 
-			{
+			if (_node.node_id < last_id) {
 			   System.out.println("ALERT: NODES OUT OF ORDER : ");
 			   System.out.println(
 				  " last node_id is= " + last_id + " , current node_id=" + _node.node_id); 
 			   return false;
 			}
 			last_id = _node.node_id;
-		 }
+		 } //Loop through nodes to test if node list is ordered
 	  
 	  // control in genes are gene duplicate for contents
-	  
 		 itr_gene = genes.iterator();
-		 while (itr_gene.hasNext()) 
-		 {
+		 while (itr_gene.hasNext()) {
 			Gene _gene = ((Gene) itr_gene.next());
 			i1 = _gene.lnk.in_node.node_id;
 			o1 = _gene.lnk.out_node.node_id;
 			r1 = _gene.lnk.is_recurrent;
 		 
 			itr_gene1 = itr_gene;
-			while (itr_gene1.hasNext()) 
-			{
+			while (itr_gene1.hasNext()) {
 			   Gene _gene1 = ((Gene) itr_gene1.next());
 			   if (_gene1.lnk.in_node.node_id == i1
-			   && _gene1.lnk.out_node.node_id == o1
-			   && _gene1.lnk.is_recurrent == r1) 
+					   && _gene1.lnk.out_node.node_id == o1
+					   && _gene1.lnk.is_recurrent == r1) 
 			   {
 				  System.out.print(" \n  ALERT: DUPLICATE GENES :");
 				  System.out.print("  inp_node=" + i1 + " out_node=" + o1);
@@ -679,12 +685,10 @@ import jNeatCommon.*;
 		 
 		 }
 	  
-		 if (nodes.size() >= 500) 
-		 {
+		 if (nodes.size() >= 500) {
 			disab = false;
 			itr_gene = genes.iterator();
-			while (itr_gene.hasNext()) 
-			{
+			while (itr_gene.hasNext()) {
 			   Gene _gene = ((Gene) itr_gene.next());
 			
 			   if (!_gene.enable && disab) 
@@ -702,11 +706,8 @@ import jNeatCommon.*;
 			   else
 				  disab = false;
 			}
-		 }
-	  
-	  
-		 return true;
-	  
+		 }	  
+		 return true;	  
 	  }
    
 	   public void print_to_filename(String xNameFile) 
@@ -2212,6 +2213,14 @@ import jNeatCommon.*;
 		 nlist.insertElementAt(n, j);
 	  
 	  }
+	   
+	   /**
+	    * Adds new gene to the network.
+	    * Will never add a gene where a sensor is the out-node
+	    * @param pop
+	    * @param tries
+	    * @return
+	    */
 	   public boolean mutate_add_link(Population pop, int tries) 
 	  {
 		 boolean done = false;
@@ -2261,20 +2270,20 @@ import jNeatCommon.*;
 		 while (itr_node.hasNext()) 
 		 {
 			thenode1 = ((NNode) itr_node.next());
-			if (thenode1.type != NeatConstant.SENSOR)
+			if (thenode1.type != NeatConstant.SENSOR) {
 			   break;
+			}
+			
 			first_nonsensor++;
 		 
 		 }
 		 found = false;
-		 while (trycount < tries) 
-		 {
+		 while (trycount < tries) {
 		 //
 		 // recurrency case .........
 		 //
 		 
-			if (do_recur) 
-			{
+			if (do_recur) {
 			//
 			// at this point :
 			//50% of prob to decide a loop recurrency( node X to node X)
@@ -2295,7 +2304,7 @@ import jNeatCommon.*;
 				  nodenum2 = NeatRoutine.randint(first_nonsensor, nodes.size() - 1);
 			   }
 			
-			}
+			} //End recurrency case
 			//
 			// no recurrency case .........
 			//
@@ -2316,8 +2325,7 @@ import jNeatCommon.*;
 		 // verify if the possible new gene already EXIST 
 		 //
 			bypass = false;
-			for (int j = 0; j < genes.size(); j++) 
-			{
+			for (int j = 0; j < genes.size(); j++) {
 			   _gene = (Gene) genes.elementAt(j);
 			   if (thenode2.type == NeatConstant.SENSOR) 
 			   {
@@ -2377,8 +2385,7 @@ import jNeatCommon.*;
 		 
 		 } // end block trycount
 	  
-		 if (found) 
-		 {
+		 if (found) {
 		 
 		 //Check to see if this innovation already occured in the population
 			itr_innovation = pop.getInnovations().iterator();
@@ -2441,6 +2448,15 @@ import jNeatCommon.*;
 		 return false;
 	  
 	  } 
+	   
+	   /**
+	    * STC
+	    * Adds a new node to the network. 
+	    * The node is added between two nodes already connected by an active gene.
+	    * New nodes are never created when a BIAS node is the in-node if the gene
+	    * @param pop
+	    * @return
+	    */
 	   public boolean mutate_add_node(Population pop) 
 	  {
 	  
@@ -2470,22 +2486,23 @@ import jNeatCommon.*;
 		 double gene_innov2;
 	  
 	  
-		 if (genes.size() < 15) 
-		 {
+		 if (genes.size() < 15) {
 		 
 			step2 = false;
-			for (j = 0; j < genes.size(); j++) 
-			{
+			//Find the first enabled gene where the in node is not a BIAS node //STC
+			for (j = 0; j < genes.size(); j++) {
 			   _gene = (Gene) genes.elementAt(j);
 			   if (_gene.enable && (_gene.lnk.in_node.gen_node_label != NeatConstant.BIAS))
 				  break;
 			}
-		 
-			for (; j < genes.size(); j++) 
-			{
+			
+			//From the first enabled gene with a in-node which is not a BIAS-node it loops through
+			//the genes and stops at the first gene with a non-bias in-node where the random number
+			//generator returns a number bigger than or equal to 0.30
+			for (; j < genes.size(); j++) {
 			   _gene = (Gene) genes.elementAt(j);
 			   if ((NeatRoutine.randfloat() >= 0.3)
-			   && (_gene.lnk.in_node.gen_node_label != NeatConstant.BIAS)) 
+					   && (_gene.lnk.in_node.gen_node_label != NeatConstant.BIAS)) 
 			   {
 				  step2 = true;
 				  break;
@@ -2498,10 +2515,10 @@ import jNeatCommon.*;
 			
 			}
 		 
-		 } 
-		 else 
-		 {
-			while ((trycount < 20) && (!found)) 
+		 } //End gene size < 15
+		 else {
+			//Tests 20 random genes and chooses the first one which is enabled and has a non-bias in-node
+			 while ((trycount < 20) && (!found)) 
 			{
 			//Pure random splittingNeatRoutine.randint
 			   genenum = NeatRoutine.randint(0, genes.size() - 1);
@@ -2532,12 +2549,9 @@ import jNeatCommon.*;
 		 boolean done = false;
 		 itr_innovation = pop.getInnovations().iterator();
 	  
-		 while (!done) 
-		 {
+		 while (!done) {
 		 //Check to see if this innovation already occured in the population
-			if (!itr_innovation.hasNext()) 
-			{
-			
+			if (!itr_innovation.hasNext()) {			
 			//The innovation is totally novel
 			//Create the new Genes
 			//Create the new NNode
@@ -2566,8 +2580,7 @@ import jNeatCommon.*;
 			   done = true;
 			}
 			// end for new innovation case
-			else 
-			{
+			else {
 			   Innovation _innov = ((Innovation) itr_innovation.next());
 			
 			   if ((_innov.innovation_type == NeatConstant.NEWNODE)
@@ -2597,8 +2610,9 @@ import jNeatCommon.*;
 	  
 		 return true;
 	  
-	  }/**
-   
+	  }
+	   
+   /**
    * Creation of a new random genome with :
    * new_id   = numerical identification of genome
    *      i   = number of input nodes
@@ -2856,7 +2870,7 @@ import jNeatCommon.*;
 	   /**
 	    * 
 	    * @param id - ID of the genome
-	    * @param xFile - 
+	    * @param xFile - Filename of the genome
 	    */
 	   public Genome(int id, IOseq xFile) 
 	  {

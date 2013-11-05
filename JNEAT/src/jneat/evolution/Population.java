@@ -530,8 +530,7 @@ import jNeatCommon.*;
 
 		  //Check for stagnation- if there is stagnation, perform delta-coding
 		  
-			 if (highest_last_changed >= Neat.p_dropoff_age + 5) 
-			 {
+			 if (highest_last_changed >= Neat.p_dropoff_age + 5) {
 			 //------------------ block delta coding ---------------------------- 
 				System.out.print("\n+  <PERFORMING DELTA CODING>");
 				highest_last_changed = 0;
@@ -549,43 +548,34 @@ import jNeatCommon.*;
 				_specie.expected_offspring = half_pop;
 				_specie.age_of_last_improvement = _specie.age;
 			 
-				if (itr_specie.hasNext()) 
-				{
+				if (itr_specie.hasNext()) {
 				   _specie = ((Species) itr_specie.next());
 				   ((Organism) _specie.organisms.firstElement()).super_champ_offspring = half_pop;
 				// the second species  can have offspring = 1/2 pop size
 				   _specie.expected_offspring = half_pop;
 				   _specie.age_of_last_improvement = _specie.age;
 				// at this moment the offpring is terminated : the remainder species has 0 offspring!
-				   while (itr_specie.hasNext()) 
-				   {
+				   while (itr_specie.hasNext()) {
 					  _specie = ((Species) itr_specie.next());
 					  _specie.expected_offspring = 0;
-				   }
-				} 
-				else
-				{
+				   } //Loop through remainding species
+				} else {
 				   ((Organism) _specie.organisms.firstElement()).super_champ_offspring += Neat.p_pop_size - half_pop;
 				   _specie.expected_offspring += Neat.p_pop_size - half_pop;
 				}
 			 
-			 } 
-			 else
-			 {
+			 } else {
 			 // --------------------------------- block baby stolen (if baby stolen > 0)  -------------------------
 			 //		System.out.print("\n   Starting with NUM_STOLEN = "+NUM_STOLEN);
 			 
-				if (Neat.p_babies_stolen > 0) 
-				{
+				if (Neat.p_babies_stolen > 0) {
 				   _specie = null;
 				//Take away a constant number of expected offspring from the worst few species
 				   stolen_babies = 0;
-				   for (int j = sorted_species.size() - 1; (j >= 0) && (stolen_babies < NUM_STOLEN); j--) 
-				   {
+				   for (int j = sorted_species.size() - 1; (j >= 0) && (stolen_babies < NUM_STOLEN); j--) {
 					  _specie = (Species) sorted_species.elementAt(j);
 				   //				System.out.print("\n Analisis SPECIE #"+j+" (size = "+_specie.organisms.size()+" )");
-					  if ((_specie.age > 5) && (_specie.expected_offspring > 2)) 
-					  {
+					  if ((_specie.age > 5) && (_specie.expected_offspring > 2)) {
 					  //		System.out.print("\n ....STEALING!");
 						 tmpi = NUM_STOLEN - stolen_babies;
 						 if ((_specie.expected_offspring - 1) >= tmpi) 
@@ -600,11 +590,7 @@ import jNeatCommon.*;
 							_specie.expected_offspring = 1;
 						 }
 					  }
-				   }
-				
-				
-				
-				
+				   }				
 				//		 	System.out.print("\n stolen babies = "+ stolen_babies);
 				//Mark the best champions of the top species to be the super champs
 				//who will take on the extra offspring for cloning or mutant cloning
@@ -622,8 +608,7 @@ import jNeatCommon.*;
 				
 				
 				
-				   while (!done && itr_specie.hasNext()) 
-				   {
+				   while (!done && itr_specie.hasNext()) {
 					  _specie = ((Species) itr_specie.next());
 					  if (_specie.last_improved() <= Neat.p_dropoff_age) 
 					  {
@@ -637,11 +622,7 @@ import jNeatCommon.*;
 							   System.out.print("\n  give "+tb_four[i_block]+" babies to specie #" +_specie.id); 
 							}
 							i_block++;
-						 }
-						 
-						 
-						 else if (i_block >= 3) 
-						 {
+						 } else if (i_block >= 3) {
 							if (NeatRoutine.randfloat() > 0.1) 
 							{
 							   if (stolen_babies > 3) 
@@ -665,8 +646,7 @@ import jNeatCommon.*;
 					  }
 				   }
 				
-				   if (stolen_babies > 0) 
-				   {
+				   if (stolen_babies > 0) {
 					  System.out.print("\n Not all given back, giving to best Species");
 					  itr_specie = sorted_species.iterator();
 					  _specie = ((Species) itr_specie.next());
@@ -676,7 +656,6 @@ import jNeatCommon.*;
 					  stolen_babies = 0;
 				   }
 				} // end baby_stolen > 0
-			 
 			 }  	
 		  // ---------- phase of elimination of organism with flag eliminate ------------
 			 itr_organism = organisms.iterator();
@@ -700,9 +679,7 @@ import jNeatCommon.*;
 				Organism _organism = (Organism) vdel.elementAt(i);
 			 //  		organisms.remove(_organism);
 				organisms.removeElement(_organism);
-			 }
-		  
-		  
+			 }		  
 		  
 			 vdel.clear();
 		  

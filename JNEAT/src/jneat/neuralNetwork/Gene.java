@@ -55,7 +55,12 @@ import jNeatCommon.*;
 		 mutation_num = g.mutation_num;
 		 enable = g.enable;
 	  }               
-   
+	   /**
+	    * STC Creates a new gene based on parameters from a file
+	    * @param xline Line with the parameters for the gene
+	    * @param traits A vector of all the organisms traits
+	    * @param nodes A vector of all the organisms nodes
+	    */
 	   public Gene(String xline, Vector traits, Vector nodes) 
 	  {
 	  

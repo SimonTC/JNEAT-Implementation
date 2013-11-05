@@ -113,10 +113,14 @@ import jNeatCommon.*;
 	  {
 		 this.numlinks = numlinks;
 	  }      
-   /**
-   * Insert the method's description here.
-   * Creation date: (15/01/2002 8.08.13)
-   */
+   
+	   /**
+	    * STC Creates the network based on the given inputs
+	    * @param in A vector of the input nodes in the network
+	    * @param out A vector of the output nodes in the network
+	    * @param all A vector with all the nodes in the network
+	    * @param xnet_id The idof the network
+	    */
 	   public Network(Vector in, Vector out, Vector all, int xnet_id) 
 	  {
 		 inputs = in;
@@ -225,7 +229,7 @@ import jNeatCommon.*;
 	   
 	   /**
 	    * STC
-	    * Setting all weights in network to zero and resetting all internal values of the nodes
+	    * Redying all nodes for the next activation cycle
 	    */
 	   public void flush() 
 	  {

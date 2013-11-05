@@ -229,7 +229,7 @@ import jNeatCommon.*;
 	  } 
 	   /**
 	    * STC
-	    * @param ntype Neuron or Sensor type
+	    * @param ntype Node type (Neuron or Sensor)
 	    * @param nodeid Id of node
 	    * @param placement Input, bias, hidden, or output
 	    */
@@ -257,8 +257,8 @@ import jNeatCommon.*;
 	   /**
 	    * Construct the node out of a file specification
     	* using given list of traits
-	    * @param xline
-	    * @param traits
+	    * @param xline The line in the genome file containing info about the node
+	    * @param traits A vector of the traits in the genome
 	    */
 
 	   public NNode(String xline, Vector traits) 
@@ -287,11 +287,11 @@ import jNeatCommon.*;
 	  //skip keyword
 		 s1 = st.nextToken();
 	  
-	  //Get the node parameters
+	  //Get the node ID
 		 s1 = st.nextToken();
 		 node_id = Integer.parseInt(s1);
 	  
-	  //get trait
+	  //get trait ID
 		 s1 = st.nextToken();
 		 _trait_id = Integer.parseInt(s1);
 	  
@@ -299,7 +299,7 @@ import jNeatCommon.*;
 		 s1 = st.nextToken();
 		 type = Integer.parseInt(s1);
 	  
-	  //get genetic typw of node
+	  //get genetic type of node
 		 s1 = st.nextToken();
 		 gen_node_label = Integer.parseInt(s1);
 	  
@@ -466,7 +466,7 @@ import jNeatCommon.*;
 	   
 	   /**
 	    * STC
-	    * If node is a sensor, the activation value of the sensor is set to the value
+	    * If node is a sensor, the activation value of the sensor is set to the value given
 	    * @param value output value
 	    * @return 
 	    */
@@ -596,8 +596,8 @@ import jNeatCommon.*;
 	  }	   
 	  /**
 	   * STC
-	   * Resets values in the node and sets the weight of 
-	   * connection to and from the node to zero
+	   * Resets the activation counts to zero, sets the added weight to zero (after adding the weight)
+	   * and sets the is_travesed flag to false.
 	   */
 	  public void resetNNode() 
 	  {

@@ -492,20 +492,17 @@ import jNeatCommon.*;
 		 //If we have a super_champ (Population champion), finish off some special clones
 		 //
 		 //  System.out.print("\n verifica select....");
-			if (thechamp.super_champ_offspring > 0) 
-			{
+			if (thechamp.super_champ_offspring > 0) {
 			
 			//		 	System.out.print("\n analysis of champion #"+count);
 			// save in mom current champ;
 			   mom = thechamp;
 			// create a new genome from this copy 
 			   new_genome = mom.genome.duplicate(count);
-			   if ((thechamp.super_champ_offspring) > 1) 
-			   {
+			   if ((thechamp.super_champ_offspring) > 1){
 				  if ((NeatRoutine.randfloat() < .8) || (Neat.p_mutate_add_link_prob == 0.0))
 					 new_genome.mutate_link_weight(mut_power, 1.0, NeatConstant.GAUSSIAN);
-				  else 
-				  {
+				  else {
 				  //Sometimes we add a link to a superchamp
 					 net_analogue = new_genome.genesis(generation);
 					 new_genome.mutate_add_link(pop,  Neat.p_newlink_tries);
@@ -530,16 +527,13 @@ import jNeatCommon.*;
 			} //end population champ
 			
 			//If we have a Species champion, just clone it 
-			else if ((!champ_done) && (expected_offspring > 5)) 
-			{
+			else if ((!champ_done) && (expected_offspring > 5)) {
 			   mom = thechamp; //Mom is the champ
 			   new_genome = mom.genome.duplicate(count);
 			   baby = new Organism(0.0, new_genome, generation); //Baby is just like mommy
 			   champ_done = true;
 			
-			} 
-			else if ((NeatRoutine.randfloat() < Neat.p_mutate_only_prob) || poolsize == 1) 
-			{
+			} else if ((NeatRoutine.randfloat() < Neat.p_mutate_only_prob) || poolsize == 1) {
 			//Choose the random parent
 			   orgnum = NeatRoutine.randint(0, poolsize);
 			   _organism = (Organism) organisms.elementAt(orgnum);
@@ -548,8 +542,7 @@ import jNeatCommon.*;
 			
 			//Do the mutation depending on probabilities of 
 			//various mutations
-			   if (NeatRoutine.randfloat() < Neat.p_mutate_add_node_prob) 
-			   {
+			   if (NeatRoutine.randfloat() < Neat.p_mutate_add_node_prob) {
 			   //	System.out.print("\n ....species.reproduce.mutate add node");
 				  new_genome.mutate_add_node(pop); 
 				  mut_struct_baby = true;

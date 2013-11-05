@@ -211,10 +211,13 @@ import jneat.neuralNetwork.Network;
 	   public void setMate_baby(boolean mate_baby) {
 		 this.mate_baby = mate_baby;
 	  }                                          
-   /**
-   * 
-   * 
-   */
+	   
+	   /**
+	    * STC creates a new organism based on the genome. 
+	    * @param xfitness Fitness of the organism
+	    * @param xgenome The genome the organism is created from
+	    * @param xgeneration The generation number of the genome
+	    */
 	   public Organism(double xfitness, Genome xgenome, int xgeneration) 
 	  {
 		 fitness = xfitness;
