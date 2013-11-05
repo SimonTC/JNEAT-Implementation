@@ -734,6 +734,14 @@ import jNeatCommon.*;
 	  
 	  
 	  }
+	   /**
+	    * 
+	    * @param g the genome (dad) to mate this genome (mom) with
+	    * @param genomeid Id for the new baby
+	    * @param fitness1 The fitness of mom (this genome)
+	    * @param fitness2 The fitness of dad (The other genome)
+	    * @return
+	    */
 	   public Genome mate_multipoint(Genome g, int genomeid, double fitness1, double fitness2) 
 	  {
 	  
@@ -808,13 +816,39 @@ import jNeatCommon.*;
 			if (size1 < size2)
 			   p1better = true;
 		 }
-	  
+		 
 		 int len_genome = Math.max(size1, size2);
 		 int len_nodes = nodes.size();
 	  
 		 Vector<Gene> newgenes = new Vector<Gene>(len_genome, 0);
 		 Vector<NNode> newnodes = new Vector<NNode>(len_nodes, 0);
-	  
+		 
+		 /************************************************
+		  Added 05-11-2013
+		  Author: STC
+		  Based on code in the FAQ on the NEAT webpage
+		  http://www.cs.ucf.edu/~kstanley/neat.html#FAQ1
+		 /*************************************************/
+		 //Make sure all sensors and outputs are included in newnodes vector
+		 for (NNode n : nodes){
+			 int nodeLabel = n.gen_node_label;
+			 if (nodeLabel == NeatConstant.INPUT ||
+				 nodeLabel == NeatConstant.OUTPUT ||
+				 nodeLabel == NeatConstant.BIAS){
+				 
+				 int nodeTraitNumber = n.nodetrait.trait_id;
+				 
+				 //Create new node
+				 NNode newNode = new NNode(n, newtraits.elementAt(nodeTraitNumber));
+				 
+				 //Add to list of nodes
+				 newnodes.add(newNode);
+			 }
+		 }
+		 /**
+		  * End of added code block
+		  */
+		 
 		 Iterator<Gene> itr_newgenes;
 	  
 		 j1=0;
@@ -1243,6 +1277,32 @@ import jNeatCommon.*;
 		 Vector<Gene> newgenes = new Vector<Gene>(len_genome, 0);
 		 Vector<NNode> newnodes = new Vector<NNode>(len_nodes, 0);
 	  
+		 
+		 /************************************************
+		  Added 05-11-2013
+		  Author: STC
+		  Based on code in the FAQ on the NEAT webpage
+		  http://www.cs.ucf.edu/~kstanley/neat.html#FAQ1
+		 /*************************************************/
+		 //Make sure all sensors and outputs are included in newnodes vector
+		 for (NNode n : nodes){
+			 int nodeLabel = n.gen_node_label;
+			 if (nodeLabel == NeatConstant.INPUT ||
+				 nodeLabel == NeatConstant.OUTPUT ||
+				 nodeLabel == NeatConstant.BIAS){
+				 
+				 int nodeTraitNumber = n.nodetrait.trait_id;
+				 
+				 //Create new node
+				 NNode newNode = new NNode(n, newtraits.elementAt(nodeTraitNumber));
+				 
+				 //Add to list of nodes
+				 newnodes.add(newNode);
+			 }
+		 }
+		 /**
+		  * End of added code block
+		  */
 		 Iterator<Gene> itr_newgenes;
 	  
 		 j1 = 0;
@@ -1610,6 +1670,32 @@ import jNeatCommon.*;
 		 Vector<Gene> newgenes = new Vector<Gene>(genes.size(), 0);
 		 Vector<NNode> newnodes = new Vector<NNode>(nodes.size(), 0);
 	  
+		 /************************************************
+		  Added 05-11-2013
+		  Author: STC
+		  Based on code in the FAQ on the NEAT webpage
+		  http://www.cs.ucf.edu/~kstanley/neat.html#FAQ1
+		 /*************************************************/
+		 //Make sure all sensors and outputs are included in newnodes vector
+		 for (NNode n : nodes){
+			 int nodeLabel = n.gen_node_label;
+			 if (nodeLabel == NeatConstant.INPUT ||
+				 nodeLabel == NeatConstant.OUTPUT ||
+				 nodeLabel == NeatConstant.BIAS){
+				 
+				 int nodeTraitNumber = n.nodetrait.trait_id;
+				 
+				 //Create new node
+				 NNode newNode = new NNode(n, newtraits.elementAt(nodeTraitNumber));
+				 
+				 //Add to list of nodes
+				 newnodes.add(newNode);
+			 }
+		 }
+		 /**
+		  * End of added code block
+		  */
+		 
 		 if (size1 < size2) 
 		 {
 			crosspoint = NeatRoutine.randint(0, size1 - 1);
