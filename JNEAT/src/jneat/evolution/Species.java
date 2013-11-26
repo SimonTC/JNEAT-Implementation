@@ -429,7 +429,6 @@ import jNeatCommon.*;
 	   public boolean reproduce(int generation, Population pop, Vector sorted_species) 
 	  {
 	  
-		 boolean found; //When a Species is found
 		 boolean champ_done = false; //Flag the preservation of the champion  
 	  
 	  //outside the species
@@ -458,8 +457,8 @@ import jNeatCommon.*;
 		 Organism _dad = null;
 		 Species randspecies = null;
 	  
-		 if ((expected_offspring > 0) && (organisms.size() == 0)) 
-		 {
+		 //Test if reproduction is possible
+		 if ((expected_offspring > 0) && (organisms.size() == 0)) {
 			System.out.print("\n ERROR:  ATTEMPT TO REPRODUCE OUT OF EMPTY SPECIES");
 			return false;
 		 }
@@ -468,23 +467,20 @@ import jNeatCommon.*;
 		 poolsize = organisms.size() - 1;
 	  
 	  // the champion of the 'this' specie is the first element of the specie;
-		 thechamp = (Organism) organisms.firstElement();
-	  
+		 thechamp = (Organism) organisms.firstElement();	  
 	  
 	  
 	  //Create the designated number of offspring for the Species
 	  //one at a time
 		 boolean outside = false;
 	  
-		 for (count = 0; count < expected_offspring; count++) 
-		 {
+		 for (count = 0; count < expected_offspring; count++) {
 		 
 			mut_struct_baby = false;
 			mate_baby = false;
 			outside = false;
 		 
-			if (expected_offspring > Neat.p_pop_size) 
-			{
+			if (expected_offspring > Neat.p_pop_size) {
 			   System.out.print("\n ALERT: EXPECTED OFFSPRING = " + expected_offspring);
 			}
 		 
@@ -527,7 +523,7 @@ import jNeatCommon.*;
 			} //end population champ
 			
 			//If we have a Species champion, just clone it 
-			else if ((!champ_done) && (expected_offspring > 5)) {
+			else if ((!champ_done) && (expected_offspring > 0)) {
 			   mom = thechamp; //Mom is the champ
 			   new_genome = mom.genome.duplicate(count);
 			   baby = new Organism(0.0, new_genome, generation); //Baby is just like mommy

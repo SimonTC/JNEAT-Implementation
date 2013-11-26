@@ -399,7 +399,7 @@ import jNeatCommon.*;
 				total_expected += _specie.expected_offspring;
 			 }
 		  
-		  //Need to make up for lost foating point precision in offspring assignment
+		  //Need to make up for lost floating point precision in offspring assignment
 		  //If we lost precision, give an extra baby to the best Species
 		  
 			 if (total_expected < total_organisms) 
@@ -504,29 +504,23 @@ import jNeatCommon.*;
 			 curspecies = (Species) sorted_species.firstElement();
 		  
 		  //Check for Population-level stagnation
-			 ((Organism) curspecies.getOrganisms().firstElement()).pop_champ = true;
+			 Organism popChamp = ((Organism) curspecies.getOrganisms().firstElement());
+			 popChamp.pop_champ = true;
 		  
 		  
-			 Organism tmp = (Organism) curspecies.getOrganisms().firstElement();
-		  
-		  
-			 if (((Organism) curspecies.organisms.firstElement()).orig_fitness > highest_fitness) 
-			 {
-				highest_fitness = ((Organism) curspecies.organisms.firstElement()).orig_fitness; 
+			 if (popChamp.orig_fitness > highest_fitness) {
+				//Fitness of the population has grown
+				 highest_fitness = popChamp.orig_fitness; 
 				highest_last_changed = 0;
 			 //	  	System.out.print("\n    Good! Population has reached a new *RECORD FITNESS* -> " + highest_fitness);
 				rep1.append("\n    population has reached a new *RECORD FITNESS* -> " + highest_fitness);
-	
-	
-			
-			 } 
-			 else 
-			 {
+			} else {
+				//Fitness of population has not grown
 				++highest_last_changed;
 			 
 			 //	  	System.out.print("\n  Are passed "+ highest_last_changed+ " generations from last population fitness record: "+ highest_fitness); 
 				rep1.append("\n    are passed "+ highest_last_changed+ " generations from last population fitness record: "+ highest_fitness); 
-			 }
+			}
 
 		  //Check for stagnation- if there is stagnation, perform delta-coding
 		  
@@ -604,9 +598,7 @@ import jNeatCommon.*;
 				
 				   boolean done = false;
 				   itr_specie = sorted_species.iterator();
-				   int i_block = 0;
-				
-				
+				   int i_block = 0;				
 				
 				   while (!done && itr_specie.hasNext()) {
 					  _specie = ((Species) itr_specie.next());
@@ -661,11 +653,9 @@ import jNeatCommon.*;
 			 itr_organism = organisms.iterator();
 			 Vector vdel = new Vector(organisms.size());
 		  
-			 while (itr_organism.hasNext()) 
-			 {
+			 while (itr_organism.hasNext()) {
 				Organism _organism = ((Organism) itr_organism.next());
-				if (_organism.eliminate) 
-				{
+				if (_organism.eliminate) {
 				//Remove the organism from its Species
 				   _specie = _organism.species;
 				   _specie.remove_org(_organism);
@@ -708,53 +698,9 @@ import jNeatCommon.*;
 		  
 		  
 		  
-		  //
-		  //Destroy and remove the old generation from the organisms and species
-		  // (because we have pointer to organisms , the new organisms created
-		  //  are not in organisms and can't br eliminated;
-		  // thus are elimate onlyu corrent organisms !)
-		  
-		  
-		  
-		  
-		  //------prima---------------------------------------
-		  /*   	
-		  	
-		  itr_organism = organisms.iterator();
-		  vdel = new Vector(organisms.size());
-		  
-		  while (itr_organism.hasNext()) 
-		  {
-		  Organism _organism = ((Organism) itr_organism.next());
-		  //Remove the organism from its Species
-		  _specie = _organism.species;
-		  _specie.remove_org(_organism);
-		  //store the organism can be elimanated;
-		  vdel.add(_organism);
-		  }
-		  
-		  //eliminate organism from master list
-		  for (int i = 0; i < vdel.size(); i++) 
-		  {
-		  Organism _organism = (Organism) vdel.elementAt(i);
-		  //	  	organisms.remove(_organism);
-		  organisms.removeElement(_organism);
-		  }
-		  
-		  */
-		  
-		  //---------------------------------------------
-		  
-		  
-		  
-		  
-		  
-		  //------dopo---------------------------------------
+		 
+			 
 			 itr_organism = organisms.iterator();
-		  
-		  
-		  
-		  
 			 while (itr_organism.hasNext()) 
 			 {
 				Organism _organism = ((Organism) itr_organism.next());
