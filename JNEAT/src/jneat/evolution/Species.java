@@ -523,7 +523,7 @@ import jNeatCommon.*;
 			} //end population champ
 			
 			//If we have a Species champion, just clone it 
-			else if ((!champ_done) && (expected_offspring > 0)) {
+			else if ((!champ_done) && (expected_offspring >= Neat.p_min_num_offspring_before_save)) {
 			   mom = thechamp; //Mom is the champ
 			   new_genome = mom.genome.duplicate(count);
 			   baby = new Organism(0.0, new_genome, generation); //Baby is just like mommy

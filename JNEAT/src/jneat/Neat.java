@@ -113,6 +113,9 @@
    
    /** number of a trait */
 	  public static int p_num_trait_params;
+	  
+   /** Minimum number of offsprings for a specie before champion is saved*/
+	  public static int p_min_num_offspring_before_save;
    
    
 	  public static String d_trait_param_mut_prob;
@@ -150,6 +153,7 @@
 	  public static String d_babies_stolen;
 	  public static String d_num_runs;
 	  public static String d_num_trait_params;
+	  public static String d_min_num_offspring_before_save;
    
 	   public static String getDescription(String xkey) {
 		 try {
@@ -197,6 +201,7 @@
 		 p_babies_stolen = 0;
 		 p_num_runs = 1;
 		 p_num_trait_params = 8;
+		 p_min_num_offspring_before_save = 5;
 	  //
 	  // setting the description  of all parameters
 	  //
