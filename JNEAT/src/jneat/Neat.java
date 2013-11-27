@@ -116,6 +116,9 @@
 	  
    /** Minimum number of offsprings for a specie before champion is saved*/
 	  public static int p_min_num_offspring_before_save;
+	  
+	  /** Target number of speciw*/
+	  public static int p_num_species_target;
    
    
 	  public static String d_trait_param_mut_prob;
@@ -154,6 +157,7 @@
 	  public static String d_num_runs;
 	  public static String d_num_trait_params;
 	  public static String d_min_num_offspring_before_save;
+	  public static String d_num_species_target;
    
 	   public static String getDescription(String xkey) {
 		 try {

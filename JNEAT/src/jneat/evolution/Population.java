@@ -343,6 +343,28 @@ import jNeatCommon.*;
 			 Species curspecies = null;
 			 Species best_specie = null;
 			 Vector sorted_species = null;
+			 
+			//We can try to keep the number of species constant at this number
+			 int num_species_target= Neat.p_num_species_target;
+			 int num_species=species.size();
+			 double compat_mod=0.3; //Modify compat thresh to control speciation
+
+			 //Keeping species diverse 
+			 //This commented out code forces the system to aim for 
+			 // num_species species at all times, enforcing diversity 
+			 //This tinkers with the compatibility threshold, which 
+			 // normally would be held constant 
+			 if (generation>1) { 
+				 if (num_species<num_species_target) {
+					 Neat.p_compat_threshold-=compat_mod; //compat_mod works well at about 0.3 
+				 } else if (num_species>num_species_target) { 
+					 Neat.p_compat_threshold+=compat_mod; 
+				 }	
+				 if (Neat.p_compat_threshold<0.3) {
+					 Neat.p_compat_threshold=0.3; 
+				 }
+			 }  
+			 
 		  
 		  
 		  // Use Species' ages to modify the objective fitness of organisms
