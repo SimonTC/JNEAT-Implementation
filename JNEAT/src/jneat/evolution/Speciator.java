@@ -18,6 +18,9 @@ public class Speciator extends Neat {
 		Vector<Species> species;
 		
 		species = pop.species;
+		if (species == null){
+			species = new Vector<>(1);
+		}
 		 
 		Organism compare_org = null; // Organism for comparison
 		Species newspecies = null;
