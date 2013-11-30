@@ -180,6 +180,7 @@ public class Genome extends Neat {
 
 		// okay all nodes created, the new genome can be generate
 		newgenome = new Genome(new_id, traits_dup, nodes_dup, genes_dup);
+		newgenome.phenotype= newgenome.genesis(new_id); //Added by STC. Not sure if it should be here.
 		return newgenome;
 	}
 
