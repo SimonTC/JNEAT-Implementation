@@ -1126,7 +1126,7 @@ public class Genome extends Neat {
 			System.exit(0);
 		}
 		// ----------------------------------------------------------------------------------------
-
+		new_genome.phenotype=new_genome.genesis(genomeid); //Added by STC 30-11-13
 		return new_genome;
 	}
 
@@ -1530,7 +1530,7 @@ public class Genome extends Neat {
 		} // end block genome
 
 		new_genome = new Genome(genomeid, newtraits, newnodes, newgenes);
-
+		new_genome.phenotype=new_genome.genesis(genomeid); //Added by STC 30-11-13
 		return new_genome;
 	}
 
@@ -2004,9 +2004,9 @@ public class Genome extends Neat {
 		// search the existence of output node
 		// if no dump
 		//
-
+		new_genome.phenotype=new_genome.genesis(genomeid); //Added by STC 30-11-13
 		return new_genome;
-
+		
 	}
 
 	public void mutate_gene_reenable() {
