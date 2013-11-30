@@ -37,13 +37,7 @@ public class Speciator extends Neat {
 
 			if (species.isEmpty()) {
 				// if list species is empty , create the first species!
-				if (counter == 0){
-					//Create first species a spawned population
-					newspecies = new Species(++counter, speciationOfSpawn);
-				} else{
-					//Create a new species in an already created population
-					newspecies = new Species(++counter, speciationOfSpawn);
-				}
+				newspecies = new Species(++counter, speciationOfSpawn);
 				species.add(newspecies); // add this species to list of species
 				newspecies.add_Organism(_organism);
 				// Point organism to its species
@@ -93,7 +87,7 @@ public class Speciator extends Neat {
 			}
 
 		}
-
+		pop.setSpecies(species);
 		return counter; // Keep track of highest species
 	}
 }
