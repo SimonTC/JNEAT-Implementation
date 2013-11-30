@@ -469,7 +469,7 @@ public class Population extends Neat {
 		// DEBUG: Check to see if the best organism died somehow
 		// We don't want this to happen
 		
-		if (!popChampChildIsAlive(best_species_num)){
+		if (!popChampChildIsAlive()){
 			System.out.println("*********");
 			System.out.println("!!!!! Oh no! The population champ's clone hasn't survived !!!!!");
 			System.out.println("*********");
