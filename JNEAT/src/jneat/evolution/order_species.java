@@ -22,8 +22,8 @@ public class order_species implements java.util.Comparator {
 		Species _sx = (Species) o1;
 		Species _sy = (Species) o2;
 
-		Organism _ox = (Organism) _sx.organisms.firstElement();
-		Organism _oy = (Organism) _sy.organisms.firstElement();
+		Organism _ox = (Organism) _sx.organismsInSpecies.firstElement();
+		Organism _oy = (Organism) _sy.organismsInSpecies.firstElement();
 
 		if (_ox.orig_fitness < _oy.orig_fitness)
 			return +1;
