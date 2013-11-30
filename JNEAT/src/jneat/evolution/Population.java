@@ -373,6 +373,9 @@ public class Population extends Neat {
 		Organism popChamp = ((Organism) bestSpecies.getOrganisms()
 				.firstElement());
 		popChamp.pop_champ = true;
+		
+		//Make sure that population Champ is cloned
+		secureSurvivalOfPopulationChamp(popChamp, sorted_species);		
 
 		// Check for Population-level stagnation
 		if (popChamp.orig_fitness > highest_fitness) {
@@ -394,7 +397,7 @@ public class Population extends Neat {
 		if (highest_last_changed >= Neat.p_dropoff_age + 5) {
 			deltaCoding(sorted_species);
 		} else if (Neat.p_babies_stolen > 0) {
-				stealBabies(sorted_species);
+			stealBabies(sorted_species);
 		}
 		
 		//Eliminate organisms marked for elimination
@@ -465,6 +468,7 @@ public class Population extends Neat {
 		//STC: Changed from testing to see if best species is dead to see if pop_champ survived
 		// DEBUG: Check to see if the best organism died somehow
 		// We don't want this to happen
+		
 		if (!popChampChildIsAlive(best_species_num)){
 			System.out.println("*********");
 			System.out.println("!!!!! Oh no! The population champ's clone hasn't survived !!!!!");
@@ -473,10 +477,37 @@ public class Population extends Neat {
 
 	}
 	
+	private void secureSurvivalOfPopulationChamp(Organism popChamp, Vector<Species> species_sorted){
+		popChamp.super_champ_offspring++;
+		popChamp.species.expected_offspring++;
+		
+		//Steal one expected offspring from the worst performing species
+		for (int i = species_sorted.size()-1; i>=0; i--){
+			Species s = species_sorted.elementAt(i);
+			if (s.expected_offspring>0){
+				s.expected_offspring --;
+				return;
+			}
+		}
+		
+	}
 	private boolean popChampChildIsAlive(int best_species_num){
 		Species bestSpecies = findBestSpecies(best_species_num);
 		
 		Iterator <Organism> itr_organism = bestSpecies.organismsInSpecies.iterator();
+
+		while (itr_organism.hasNext()) {
+			Organism _organism = ((Organism) itr_organism.next());
+			if (_organism.pop_champ_child) {
+				return true;
+			}
+		}		
+		return false;
+	}
+	
+	private boolean popChampChildIsAlive(){
+				
+		Iterator <Organism> itr_organism = organisms.iterator();
 
 		while (itr_organism.hasNext()) {
 			Organism _organism = ((Organism) itr_organism.next());
